@@ -1,5 +1,6 @@
 #Задача_1
-
+print()
+print("Задача_1_>>>>>>>>>>>")
 class Patient:
 
     def __init__(self, name: str ="Не задано", age: int = 0, disease: str = "Не задано"):
@@ -25,6 +26,8 @@ p.appointment("Дата", "Время")
 
 
 #Задача_2
+print()
+print("Задача_2_>>>>>>>>>>>")
 
 class TouristSpot:
     def __init__(self, place: str, land: str, typeShowplace: str):
@@ -40,6 +43,8 @@ class TouristSpot:
 
 
 #Задача_3
+print()
+print("Задача_3_>>>>>>>>>>>")
 
 class ModelWindow:
 
@@ -113,3 +118,111 @@ class ModelWindow:
               f"Цвет окна: {str_colorWindow},\nВидимость окна: {str_visibal},\nВидимость границ: {str_bord}")
 
 ModelWindow().__str__()
+
+
+#Задача_4
+print()
+print("Задача_4_>>>>>>>>>>>")
+
+class ArrayUtils:
+    @staticmethod
+    def summa(lst: list) -> int:
+
+        res = 0
+        for el in lst:
+            res += el
+
+        return res
+
+    @staticmethod
+    def multipl(lst: list) -> int:
+
+        res = 1
+        for el in lst:
+            res *= el
+
+        return res
+
+    @staticmethod
+    def inversList(lst: list) -> list:
+
+        res = []
+        for el in lst:
+            res.insert(0,el)
+
+        return res
+
+    @staticmethod
+    def maxElement(lst: list) -> int:
+
+        maxEl = lst[0]
+        for el in lst:
+            if el > maxEl:
+                maxEl = el
+
+        return maxEl
+
+    @staticmethod
+    def minElement(lst: list) -> int:
+
+        minEl = lst[0]
+        for el in lst:
+            if el < minEl:
+                minEl = el
+
+        return minEl
+
+
+#Задача_5
+print()
+print("Задача_5_>>>>>>>>>>>")
+
+# Разработайте класс Vector для представления и манипуляции векторами в трехмерном пространстве.
+
+# Включите методы для сложения, вычитания, скалярного произведения и векторного произведения векторов.
+# Перегрузите операторы (+, -, *) для соответствующих операций: + для сложения векторов, - для вычитания,
+# * может использоваться как для скалярного произведения, так и для векторного в зависимости от типа аргумента (вектор или число).
+# Реализуйте также метод для вычисления нормы (длины) вектора.
+
+
+class Vector:
+
+    def __init__(self, x: float = 0.0, y: float = 0.0, z: float = 0.0):
+        self.x = x
+        self.y = y
+        self.z = z
+
+    def __add__(self, other):
+        new_x = self.x + other.x
+        new_y = self.y + other.y
+        new_z = self.z + other.z
+
+        return new_x, new_y, new_z
+
+    def __sub__(self, other):
+        new_x = self.x - other.x
+        new_y = self.y - other.y
+        new_z = self.z - other.z
+
+        return new_x, new_y, new_z
+
+    def __mul__(self, other):
+        new_x = self.x * other.x
+        new_y = self.y * other.y
+        new_z = self.z * other.z
+
+        return new_x, new_y, new_z
+########################################################################################
+
+    def __str__(self):
+        return f'Координаты вектора: "{self.x,self.y,self.z}"'
+
+v1 = Vector(1,2,3)
+v2 = Vector(4,5,6)
+
+vv = v1 + v2
+print(vv)
+
+
+
+
