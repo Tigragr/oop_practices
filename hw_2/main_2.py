@@ -1,6 +1,8 @@
 #Задача_1
+from logging.config import stopListening
+
 print()
-print("Задача_1_>>>>>>>>>>>")
+print("\u001b[33mЗадача_1_>>>>>>>>>>>\u001b[0m")
 class Patient:
 
     def __init__(self, name: str ="Не задано", age: int = 0, disease: str = "Не задано"):
@@ -27,7 +29,7 @@ p.appointment("Дата", "Время")
 
 #Задача_2
 print()
-print("Задача_2_>>>>>>>>>>>")
+print("\u001b[33mЗадача_2_>>>>>>>>>>>\u001b[0m")
 
 class TouristSpot:
     def __init__(self, place: str, land: str, typeShowplace: str):
@@ -44,7 +46,7 @@ class TouristSpot:
 
 #Задача_3
 print()
-print("Задача_3_>>>>>>>>>>>")
+print("\u001b[33mЗадача_3_>>>>>>>>>>>\u001b[0m")
 
 class ModelWindow:
 
@@ -122,7 +124,7 @@ ModelWindow().__str__()
 
 #Задача_4
 print()
-print("Задача_4_>>>>>>>>>>>")
+print("\u001b[33mЗадача_4_>>>>>>>>>>>\u001b[0m")
 
 class ArrayUtils:
     @staticmethod
@@ -175,15 +177,7 @@ class ArrayUtils:
 
 #Задача_5
 print()
-print("Задача_5_>>>>>>>>>>>")
-
-# Разработайте класс Vector для представления и манипуляции векторами в трехмерном пространстве.
-
-# Включите методы для сложения, вычитания, скалярного произведения и векторного произведения векторов.
-# Перегрузите операторы (+, -, *) для соответствующих операций: + для сложения векторов, - для вычитания,
-# * может использоваться как для скалярного произведения, так и для векторного в зависимости от типа аргумента (вектор или число).
-# Реализуйте также метод для вычисления нормы (длины) вектора.
-
+print("\u001b[33mЗадача_5_>>>>>>>>>>>\u001b[0m")
 
 class Vector:
 
@@ -197,32 +191,120 @@ class Vector:
         new_y = self.y + other.y
         new_z = self.z + other.z
 
-        return new_x, new_y, new_z
+        return Vector(new_x, new_y, new_z)
 
     def __sub__(self, other):
         new_x = self.x - other.x
         new_y = self.y - other.y
         new_z = self.z - other.z
 
-        return new_x, new_y, new_z
+        return Vector(new_x, new_y, new_z)
 
     def __mul__(self, other):
-        new_x = self.x * other.x
-        new_y = self.y * other.y
-        new_z = self.z * other.z
+        if type(other).__name__ == "int" or type(other).__name__ == "float":
+            new_x = self.x * other
+            new_y = self.y * other
+            new_z = self.z * other
+        else:
+            new_x = self.z * other.y - self.y * other.z
+            new_y = self.x * other.z - self.z * other.x
+            new_z = self.y * other.x - self.x * other.y
 
-        return new_x, new_y, new_z
-########################################################################################
+        return Vector(new_x, new_y, new_z)
+
+    def norma(self):
+        return (self.x * self.x + self.y * self.y + self.z * self.z) ** 1/2
 
     def __str__(self):
-        return f'Координаты вектора: "{self.x,self.y,self.z}"'
+        return f'Результат операции: "{self.x,self.y,self.z}"'
 
 v1 = Vector(1,2,3)
 v2 = Vector(4,5,6)
 
 vv = v1 + v2
+vvv = v1 * 2
+vvvv = v1 * v2
+
 print(vv)
+print(vvv)
+print(vvvv)
 
 
+#Задача_6
+print()
+print("\u001b[33mЗадача_6_>>>>>>>>>>>\u001b[0m")
+
+# Добавьте методы проверки на знаменатель равный нулю перед выполнением операций.
+# Операция вывода на экран (__str__)
+# должна отображать дробь в формате "числитель/знаменатель" или "целое число", если знаменатель равен 1.
+
+class Fraction:
+
+    @staticmethod
+    def checkZeroDenom(denom: int) -> bool:
+        if denom == 0:
+            print("Знаменатель равен нулю. Вычисление невозможно.")
+            res = False
+        else:
+            res = True
+        return res
+
+    def __init__(self, numerator: int, denominator: int):
+        self.numerator = numerator
+        self.denominator = denominator
+
+    def __add__(self,other):
+
+        if Fraction.checkZeroDenom(self.denominator) == False or Fraction.checkZeroDenom(other.denominator) == False:
+            return ''
+
+        new_numerator = self.numerator * other.denominator + other.numerator * self.denominator
+        new_denominator = self.denominator * other.denominator
+
+        return Fraction(new_numerator,new_denominator)
+
+    def __mul__(self, other):
+
+        if Fraction.checkZeroDenom(self.denominator) == False or Fraction.checkZeroDenom(other.denominator) == False:
+            return ''
+
+        new_numerator = self.numerator * other.numerator
+        new_denominator = self.denominator * other.denominator
+
+        return Fraction(new_numerator, new_denominator)
 
 
+    def __sub__(self, other):
+
+        if Fraction.checkZeroDenom(self.denominator) == False or Fraction.checkZeroDenom(other.denominator) == False:
+            return ''
+
+        new_numerator = self.numerator * other.denominator - other.numerator * self.denominator
+        new_denominator = self.denominator * other.denominator
+
+        return Fraction(new_numerator, new_denominator)
+
+    def __str__(self):
+
+        less = abs(self.denominator) if abs(self.denominator) < abs(self.numerator) else abs(self.numerator)
+        for i in range(less, 0, -1):
+
+            if self.denominator % i != 0 or self.numerator % i != 0:
+                continue
+
+            self.numerator = self.numerator / i
+            self.denominator = self.denominator / i
+            break
+
+        if self.denominator == 1:
+            res = str(int(self.numerator))
+        else:
+            res = str(int(self.numerator)) + "/" + str(int(self.denominator))
+
+        return "Результат операции: " + res
+
+d1 = Fraction(128,358)
+d2 = Fraction(15,25)
+print("d1 + d2 -> ", d1+d2)
+print("d1 * d2 -> ", d1*d2)
+print("d1 - d2 -> ", d1-d2)
