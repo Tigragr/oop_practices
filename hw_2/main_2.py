@@ -1,5 +1,4 @@
 #Задача_1
-from logging.config import stopListening
 
 print()
 print("\u001b[33mЗадача_1_>>>>>>>>>>>\u001b[0m")
@@ -234,10 +233,6 @@ print(vvvv)
 print()
 print("\u001b[33mЗадача_6_>>>>>>>>>>>\u001b[0m")
 
-# Добавьте методы проверки на знаменатель равный нулю перед выполнением операций.
-# Операция вывода на экран (__str__)
-# должна отображать дробь в формате "числитель/знаменатель" или "целое число", если знаменатель равен 1.
-
 class Fraction:
 
     @staticmethod
@@ -308,3 +303,39 @@ d2 = Fraction(15,25)
 print("d1 + d2 -> ", d1+d2)
 print("d1 * d2 -> ", d1*d2)
 print("d1 - d2 -> ", d1-d2)
+
+
+#Задача_7
+print()
+print("\u001b[33mЗадача_7_>>>>>>>>>>>\u001b[0m")
+
+import math
+class GeometryUtils:
+
+    @staticmethod
+    def areaCircle(radius: float) -> float:
+        return math.pi * radius ** 2
+
+    @staticmethod
+    def perimeterCircle(radius: float) -> float:
+        return math.pi * radius * 2
+
+    @staticmethod
+    def areaRectangle(length: float, width: float) -> float:
+        return length * width
+
+    @staticmethod
+    def perimeterRectangle(length: float, width: float) -> float:
+        return 2 * (length + width)
+
+    @staticmethod
+    def areaTriangle(side_1: float, side_2: float, side_3: float) -> float:
+        p = (side_1 + side_2 + side_3) / 2
+        if (p - side_1 > 0 and p - side_2 > 0 and p - side_3 > 0):
+            return math.sqrt(p * (p - side_1) * (p - side_2) * (p - side_3))
+        else:
+            print("Треугольник с такими сторонами не существует.")
+            return ''
+
+print(GeometryUtils.areaTriangle(1,3,1))
+print(GeometryUtils.areaTriangle(3,4,5))
