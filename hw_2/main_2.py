@@ -1,5 +1,4 @@
 #Задача_1
-
 print()
 print("\u001b[33mЗадача_1_>>>>>>>>>>>\u001b[0m")
 class Patient:
@@ -339,3 +338,82 @@ class GeometryUtils:
 
 print(GeometryUtils.areaTriangle(1,3,1))
 print(GeometryUtils.areaTriangle(3,4,5))
+
+
+#Задача_8
+print()
+print("\u001b[33mЗадача_8_>>>>>>>>>>>\u001b[0m")
+
+class Time:
+
+    @staticmethod
+    def doubleDig(digit: int) -> str:
+#        print(22 % 10)
+        return f"0{digit}" if digit // 10 == 0 else str(digit)
+
+    def __init__(self, hh: int, mm: int, ss: int):
+        self.hh = hh
+        self.mm = mm
+        self.ss = ss
+
+    def __add__(self, other):
+        hh = self.hh + other.hh
+        mm = self.mm + other.mm
+        ss = self.ss + other.ss
+
+        return Time(hh,mm, ss)
+
+    def __sub__(self, other):
+
+        sss = self.hh * 3600 + self.mm * 60 + self.ss
+        sso = other.hh * 3600 + other.mm * 60 + other.ss
+
+        if sss > sso:
+            sign = 1
+        else:
+            sign = -1
+
+        hh = sign * (abs(sss - sso) // 3600)
+        mm = sign * (abs(sss - sso) % 60 // 60)
+        ss = sign * (abs(sss - sso) % 3600)
+
+        return Time(hh, mm, ss)
+
+    def __mul__(self, other: int):
+        if str(other).isdigit():
+            hh = self.hh * other
+            mm = self.mm * other
+            ss = self.ss * other
+            return Time(hh,mm, ss)
+        else:
+            return "Множителем должно быть целое положительное число. Операция не выполнена."
+
+
+    def __str__(self):
+
+        hh = abs(self.hh)
+        mm = abs(self.mm)
+        ss = abs(self.ss)
+        sign = "-" if self.hh < 0 or self.mm < 0 or self.ss < 0 else ""
+
+        mm = mm + ss // 60
+        ss = ss % 60
+        hh = hh + mm // 60
+        mm = mm % 60
+
+        if hh >= 24:
+            dd = hh // 24
+            hh = hh % 24
+            return f"{sign}{dd} day(s) & {Time.doubleDig(hh)}:{Time.doubleDig(mm)}:{Time.doubleDig(ss)}"
+        else:
+            return f"{sign}{Time.doubleDig(abs(hh))}:{Time.doubleDig(mm)}:{Time.doubleDig(ss)}"
+
+t1 = Time(27,27,27)
+t2 = Time(28,0,1)
+
+print(f"t1:{"\t"*3}", t1)
+print(f"t2:{"\t"*3}", t2)
+print("t1 + t2:\t", t1 + t2)
+print('t2 * "q":\t',t2 * "q")
+print('t1 * 4:\t\t',t1 * 4)
+print("t1 - t2:\t", t1 - t2)
