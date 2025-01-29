@@ -1,6 +1,112 @@
+from __future__ import annotations
+
 #Задача_1
 print()
 print("\u001b[33mЗадача_1_>>>>>>>>>>>\u001b[0m")
+
+class Wizard:
+
+    name: str
+    house: str
+    force: int
+    spells: list
+    status: bool
+
+    def __init__(self,name,house,force,spells = None,status = None):
+
+        self.__name = name
+        self.__house = house
+        self.__force = force
+        self.__spells = spells or []
+        self.__status = status or False
+
+    def get_name(self):
+        return self.__name
+
+    def get_house(self):
+        return self.__house
+
+    def get_force(self):
+        return self.__force
+
+    def get_spells(self):
+        return self.__spells
+
+    def get_status(self):
+        return self.__status
+
+    def set_house(self,house):
+        self.__house = house
+
+    def set_force(self,force):
+        self.__force = force if force >= 0 else self.__force
+
+    def set_status(self,status):
+        self.__status = status
+###################################################
+###################################################
+    def add_spell(self, new_spell:Spell): # добавляет заклинание в список известных.
+        if new_spell not in self.spells:
+            self.__spells.append(new_spell)
+
+    def remove_spell(self, del_spell: Spell): # удаляет заклинание из списка известных.
+        if del_spell in self.spells:
+            self.__spells.remove(del_spell)
+
+    def increase_force(self, amount: int): # увеличивает уровень магической силы на заданное значение (неотрицательное).
+        increase = amount if amount >= 0 else 0
+        self.force = self.force + increase
+
+    def __str__(self):
+        return self.name,self.house,self.force,self.spells,self.status
+
+###################################################
+###################################################
+
+class Spell:
+
+    name: str
+    difficulty: int
+    type: str
+
+    def __init__(self, name, difficulty, type):
+        self.__name = name
+        self.__difficulty = difficulty
+        self.__type = type
+
+    def get_name(self):
+        return self.__name
+
+    def get_difficulty(self):
+        return self.__difficulty
+
+    def get_type(self):
+        return self.__type
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class Patient:
 
     def __init__(self, name: str ="Не задано", age: int = 0, disease: str = "Не задано"):
